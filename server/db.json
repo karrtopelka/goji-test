@@ -1,0 +1,14 @@
+{
+  "groceryItems": [
+    {
+      "id": "41dd",
+      "name": "qweqwe",
+      "count": 1,
+      "bought": false,
+      "stickerPosition": {
+        "x": 429,
+        "y": 379
+      }
+    }
+  ]
+}
