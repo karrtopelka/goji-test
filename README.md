@@ -1,36 +1,38 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# GOJI TEST GROCERY APP
 
-## Getting Started
+## Used Libs
 
-First, run the development server:
+- Next JS 14
+- JSON-server
+- MUI
+- Axios
+- React Hook Form
+- Zod
+- Konva
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## How to run
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+1. Clone the repo
+2. Run `npm install`
+3. Run `npm run json-server`
+4. Run `npm run dev`
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- `server` folder contains the JSON-server with db.json file
+- `src` folder contains the Next JS app
+  - `app` folder contains the app component
+  - `components` folder contains all the components
+  - `context` folder contains all the context
+  - `hooks` folder contains all the custom hooks
+  - `services` folder contains all the services
+  - `styles` folder contains all the styles
+  - `types` folder contains all the types
+  - `utils` folder contains all the utility functions
 
-## Learn More
+As this project in idea has to ready to expand, I have created a structure that
+is easy to maintain and expand. Every component has its own folder with all the
+necessary files.
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+For reusable components I have created their own folder, so they are easy to
+find and use. Also, they are all customisable, to use for different purposes.

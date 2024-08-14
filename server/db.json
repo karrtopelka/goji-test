@@ -2,12 +2,12 @@
   "groceryItems": [
     {
       "id": "41dd",
-      "name": "qweqwe",
+      "name": "first",
       "count": 1,
       "bought": false,
       "stickerPosition": {
-        "x": 429,
-        "y": 379
+        "x": 40,
+        "y": 40
       }
     }
   ]
