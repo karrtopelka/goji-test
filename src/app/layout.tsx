@@ -1,4 +1,4 @@
-import { Providers } from '@/contexts/providers';
+import { Providers } from '@/contexts';
 import theme from '@/styles/theme';
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';

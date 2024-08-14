@@ -3,7 +3,6 @@
 import { queryClient } from '@/utils';
 import { QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
-import { GroceryItemsProvider } from './grocery-items';
 
 export type ProvidersProps = {
   children: React.ReactNode;
@@ -12,7 +11,7 @@ export type ProvidersProps = {
 export function Providers({ children }: ProvidersProps) {
   return (
     <QueryClientProvider client={queryClient}>
-      <GroceryItemsProvider>{children}</GroceryItemsProvider>
+      {children}
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   );
