@@ -1,7 +1,6 @@
 'use client';
 
-import { useGroceryItemsContext } from '@/contexts';
-import { useToast } from '@/hooks';
+import { useAddGroceryItem, useToast, useUpdatePartialByIdGroceryItem } from '@/hooks';
 import { GroceryItem, grocerySchema } from '@/types';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Box, Button, Checkbox, FormHelperText, FormLabel, TextField } from '@mui/material';
@@ -9,25 +8,27 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
 type BaseProps = {
-  showDelete?: boolean;
   showReset?: boolean;
   onClose?: () => void;
+  onDelete?: (id: string) => Promise<void>;
 };
 
 type WithItem = {
   item: GroceryItem;
-  showDelete: true;
+  onDelete: (id: string) => Promise<void>;
 };
 
 type WithoutItem = {
   item?: GroceryItem;
-  showDelete?: false;
+  onDelete?: never;
 };
 
 export type GroceryFormProps = BaseProps & (WithItem | WithoutItem);
 
-export const GroceryForm = ({ item, showDelete, showReset, onClose }: GroceryFormProps) => {
-  const { addItem, updatePartialById, deleteItem } = useGroceryItemsContext();
+export const GroceryForm = ({ item, onDelete, showReset, onClose }: GroceryFormProps) => {
+  const { mutateAsync: updatePartial } = useUpdatePartialByIdGroceryItem();
+  const { mutateAsync: addItem } = useAddGroceryItem();
+
   const { showToast, ToastComponent } = useToast();
 
   const {
@@ -46,7 +47,7 @@ export const GroceryForm = ({ item, showDelete, showReset, onClose }: GroceryFor
   const onSubmit = async (data: z.infer<typeof grocerySchema>) => {
     try {
       if (item) {
-        const response = await updatePartialById(item.id, data);
+        const response = await updatePartial({ id: item.id, data });
         showToast(`Grocery item ${response?.name} updated successfully`, 'success');
       } else {
         const response = await addItem(data);
@@ -91,15 +92,8 @@ export const GroceryForm = ({ item, showDelete, showReset, onClose }: GroceryFor
         {errors.bought && <FormHelperText error>{errors.bought.message}</FormHelperText>}
       </Box>
       <Box display='flex' justifyContent='space-between' mt={2}>
-        {showDelete && (
-          <Button
-            type='button'
-            color='error'
-            variant='outlined'
-            onClick={() => {
-              deleteItem(item.id);
-              onClose?.();
-            }}>
+        {onDelete && (
+          <Button type='button' color='error' variant='outlined' onClick={() => onDelete(item.id)}>
             Delete
           </Button>
         )}

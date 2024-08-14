@@ -18,14 +18,12 @@
     "@mui/icons-material": "^5.16.7",
     "@mui/material-nextjs": "^5.16.6",
     "axios": "^1.7.4",
-    "canvas": "^2.11.2",
     "json-server": "^1.0.0-beta.1",
-    "konva": "^9.3.14",
     "next": "14.2.5",
     "react": "^18",
     "react-dom": "^18",
     "react-hook-form": "^7.52.2",
-    "react-konva": "^18.2.10",
+    "react-query": "^3.39.3",
     "zod": "^3.23.8"
   },
   "devDependencies": {

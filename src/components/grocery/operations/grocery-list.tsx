@@ -1,6 +1,12 @@
 'use client';
 
-import { useGroceryItemsContext } from '@/contexts';
+import {
+  useDeleteGroceryItem,
+  useGroceryItem,
+  useGroceryItems,
+  useUpdatePartialByIdGroceryItem,
+} from '@/hooks';
+import { GroceryItem } from '@/types';
 import CloseIcon from '@mui/icons-material/Close';
 import {
   Box,
@@ -22,11 +28,23 @@ import { useState } from 'react';
 import { GroceryForm } from './grocery-form';
 
 export const GroceryList = () => {
-  const { groceryItems, deleteItem, updateItem } = useGroceryItemsContext();
-  const [activeItem, setActiveItem] = useState<null | string>(null);
+  const [activeItem, setActiveItem] = useState<undefined | string>(undefined);
+  const { data: groceryItems } = useGroceryItems();
+  const { data: selectedItem } = useGroceryItem({ id: activeItem });
+  const { mutateAsync: deleteItem } = useDeleteGroceryItem();
+  const { mutateAsync: updatePartial } = useUpdatePartialByIdGroceryItem();
 
   const handleCloseModal = () => {
-    setActiveItem(null);
+    setActiveItem(undefined);
+  };
+
+  const handleDelete = async (id: string) => {
+    await deleteItem(id);
+    handleCloseModal();
+  };
+
+  const handleUpdatePartial = async (id: string, data: Partial<GroceryItem>) => {
+    await updatePartial({ id, data });
   };
 
   return (
@@ -42,7 +60,7 @@ export const GroceryList = () => {
           Grocery List
         </Typography>
         <Box mt={2}>
-          {groceryItems.length > 0 ? (
+          {!!groceryItems && !!groceryItems.length ? (
             <TableContainer component={Paper} sx={{ maxHeight: 800, overflow: 'auto' }}>
               <Table stickyHeader>
                 <TableHead>
@@ -59,7 +77,7 @@ export const GroceryList = () => {
                       <TableCell>
                         <Checkbox
                           checked={item.bought}
-                          onChange={() => updateItem({ ...item, bought: !item.bought })}
+                          onChange={() => handleUpdatePartial(item.id, { bought: !item.bought })}
                         />
                       </TableCell>
                       <TableCell sx={{ maxWidth: 150 }}>
@@ -90,7 +108,7 @@ export const GroceryList = () => {
                         <Button
                           variant='contained'
                           color='secondary'
-                          onClick={() => deleteItem(item.id)}>
+                          onClick={() => handleDelete(item.id)}>
                           Delete
                         </Button>
                       </TableCell>
@@ -104,7 +122,7 @@ export const GroceryList = () => {
           )}
         </Box>
       </Box>
-      <Modal open={!!activeItem} onClose={handleCloseModal}>
+      <Modal open={!!selectedItem} onClose={handleCloseModal}>
         <Box
           sx={{
             position: 'absolute',
@@ -130,10 +148,10 @@ export const GroceryList = () => {
             </Tooltip>
           </Box>
           <GroceryForm
-            item={groceryItems.find((item) => item.id === activeItem)!}
+            item={selectedItem!}
             onClose={handleCloseModal}
             showReset={false}
-            showDelete={true}
+            onDelete={(id) => handleDelete(id)}
           />
         </Box>
       </Modal>

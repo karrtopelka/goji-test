@@ -1,14 +1,40 @@
 {
   "groceryItems": [
     {
-      "id": "41dd",
-      "name": "qweqwe",
+      "id": "6080",
+      "name": "hello",
+      "count": 122,
+      "bought": true
+    },
+    {
+      "id": "4b11",
+      "name": "hello",
+      "count": 111,
+      "bought": true
+    },
+    {
+      "id": "7463",
+      "name": "awfaef",
       "count": 1,
-      "bought": false,
-      "stickerPosition": {
-        "x": 186,
-        "y": 103
-      }
+      "bought": false
+    },
+    {
+      "id": "de1c",
+      "name": "gergergerg",
+      "count": 1,
+      "bought": false
+    },
+    {
+      "id": "bc23",
+      "name": "adwawdvcawvd",
+      "count": 1,
+      "bought": false
+    },
+    {
+      "id": "9967",
+      "name": "gjyjgyj",
+      "count": 1,
+      "bought": false
     }
   ]
 }

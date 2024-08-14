@@ -6,6 +6,11 @@ export const fetchGroceryItems = async (): Promise<GroceryItem[]> => {
   return response.data;
 };
 
+export const fetchGroceryItemById = async (id: string): Promise<GroceryItem> => {
+  const response = await axiosInstance.get<GroceryItem>(`/groceryItems/${id}`);
+  return response.data;
+};
+
 export const addGroceryItem = async (item: Omit<GroceryItem, 'id'>): Promise<GroceryItem> => {
   const response = await axiosInstance.post<GroceryItem>('/groceryItems', item);
   return response.data;
