@@ -5,6 +5,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import {
   Box,
   Button,
+  Checkbox,
   IconButton,
   Modal,
   Paper,
@@ -43,35 +44,38 @@ export const GroceryList = () => {
         <Box mt={2}>
           {groceryItems.length > 0 ? (
             <TableContainer component={Paper} sx={{ maxHeight: 800, overflow: 'auto' }}>
-              <Table>
+              <Table stickyHeader>
                 <TableHead>
                   <TableRow>
+                    <TableCell>Bought</TableCell>
                     <TableCell>Name</TableCell>
                     <TableCell>Count</TableCell>
-                    <TableCell
-                      sx={{
-                        position: 'sticky',
-                        right: 0,
-                        background: 'inherit',
-                      }}>
-                      Actions
-                    </TableCell>
+                    <TableCell>Actions</TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
                   {groceryItems.map((item) => (
                     <TableRow key={item.id}>
+                      <TableCell>
+                        <Checkbox
+                          checked={item.bought}
+                          onChange={() => updateItem({ ...item, bought: !item.bought })}
+                        />
+                      </TableCell>
                       <TableCell sx={{ maxWidth: 150 }}>
                         <Tooltip title={item.name}>
-                          <Typography noWrap>{item.name}</Typography>
+                          <Typography
+                            sx={{
+                              textDecoration: item.bought ? 'line-through' : 'none',
+                            }}
+                            noWrap>
+                            {item.name}
+                          </Typography>
                         </Tooltip>
                       </TableCell>
                       <TableCell>{item.count}</TableCell>
                       <TableCell
                         sx={{
-                          position: 'sticky',
-                          right: 0,
-                          background: 'inherit',
                           display: 'flex',
                           flexWrap: 'wrap',
                           gap: 2,
